@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TaskManager</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="text_view_login">Login</string>
+    <string name="text_pasword">Pasword</string>
+    <string name="text_username">Username</string>
+    <string name="text_view_sign_up">Sign up</string>
+    <string name="text_toast_login_correct">Login success</string>
+    <string name="text_toast_login_incorrect">try again</string>
+</resources>
