@@ -3,16 +3,21 @@ package com.example.taskmanager.controller.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintHelper;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.taskmanager.R;
 import com.example.taskmanager.controller.activity.SignUpActivity;
+import com.example.taskmanager.controller.activity.TaskPagerActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginFragment extends Fragment {
 
@@ -22,6 +27,7 @@ public class LoginFragment extends Fragment {
     private EditText mPasswordLogin;
     private Button mButtonLogin;
     private Button mButtonSignUp;
+    private ConstraintHelper mConstraintHelper;
 
     private String mUserNameSignUp;
     private String mPasswordSignUp;
@@ -61,6 +67,7 @@ public class LoginFragment extends Fragment {
         mPasswordLogin = view.findViewById(R.id.input_password);
         mButtonLogin = view.findViewById(R.id.btn_login);
         mButtonSignUp = view.findViewById(R.id.btn_sign_up);
+        mConstraintHelper = view.findViewById(R.id.root_constraint_layout);
     }
 
     private void setListeners(){
@@ -74,5 +81,40 @@ public class LoginFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        mButtonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validData()) {
+                    if (mUserNameSignUp == null || mPasswordSignUp == null)
+                        Snackbar.make(mConstraintHelper,
+                                "please click SIGNUP!!", Snackbar.LENGTH_LONG).show();
+
+                    else if (mUserNameLogin.getText().toString().equals(mUserNameSignUp) &&
+                            mPasswordLogin.getText().toString().equals(mPasswordSignUp)) {
+                        Intent intent = TaskPagerActivity.newIntent(getActivity());
+                        startActivity(intent);
+                    } else
+                        Snackbar.make(mConstraintHelper,
+                                "Your information are not valid!!", Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private boolean validData(){
+        if (isEmpty(mUserNameLogin) ){
+            mUserNameLogin.setError("You must enter UserName to Login!");
+            return false;
+        }
+        if (isEmpty(mPasswordLogin)){
+            mPasswordLogin.setError("You must enter Password to Login!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isEmpty(EditText text){
+        CharSequence str = text.getText().toString();
+        return TextUtils.isEmpty(str);
     }
 }
