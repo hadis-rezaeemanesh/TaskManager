@@ -16,18 +16,25 @@ import com.example.taskmanager.controller.activity.SignUpActivity;
 
 public class LoginFragment extends Fragment {
 
+    public static final String ARGS_USER_NAME = "userName";
+    public static final String ARGS_PASSWORD = "password";
     private EditText mUserNameLogin;
     private EditText mPasswordLogin;
     private Button mButtonLogin;
     private Button mButtonSignUp;
 
+    private String mUserNameSignUp;
+    private String mPasswordSignUp;
+
     public LoginFragment() {
         // Required empty public constructor
     }
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance() {
+    public static LoginFragment newInstance(String userName, String password) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
+        args.putString(ARGS_USER_NAME, userName);
+        args.putString(ARGS_PASSWORD, password);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,6 +42,8 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mUserNameSignUp = getArguments().getString(ARGS_USER_NAME);
+        mPasswordSignUp = getArguments().getString(ARGS_PASSWORD);
     }
 
     @Override
@@ -58,7 +67,10 @@ public class LoginFragment extends Fragment {
         mButtonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = SignUpActivity.newIntent(getActivity());
+                Intent intent = SignUpActivity.newIntent(
+                        getActivity(),
+                        mUserNameSignUp,
+                        mPasswordSignUp);
                 startActivity(intent);
             }
         });

@@ -12,13 +12,20 @@ import com.example.taskmanager.controller.fragment.LoginFragment;
 
 public class LoginActivity extends SingleActivityFragment {
 
-    public static Intent newIntent(Context context){
+    public static final String EXTRA_USER_NAME_LOGIN = "com.example.taskmanager.controller.activity.userNameLogin";
+    public static final String EXTRA_PASSWORD_LOGIN = "com.example.taskmanager.controller.activity.passwordLogin";
+
+    public static Intent newIntent(Context context, String userName, String password){
         Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra(EXTRA_USER_NAME_LOGIN, userName);
+        intent.putExtra(EXTRA_PASSWORD_LOGIN, password);
         return intent;
     }
                                    @Override
     public Fragment createFragment() {
-        return LoginFragment.newInstance();
+        String userName = getIntent().getStringExtra(EXTRA_USER_NAME_LOGIN);
+        String password = getIntent().getStringExtra(EXTRA_PASSWORD_LOGIN);
+        return LoginFragment.newInstance(userName, password);
     }
 
 }
