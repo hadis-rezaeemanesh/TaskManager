@@ -11,4 +11,13 @@
     <color name="color_view">#d5dcea</color>
     <color name="login_btm_blue">#95DBD9</color>
     <color name="btn_color">#69c5e5</color>
+
+    <color name="primaryColor">#f44336</color>
+    <color name="primaryLightColor">#ff7961</color>
+    <color name="primaryDarkColor">#ba000d</color>
+    <color name="secondaryColor">#ef9a9a</color>
+    <color name="secondaryLightColor">#ffcccb</color>
+    <color name="secondaryDarkColor">#ba6b6c</color>
+    <color name="primaryTextColor">#fafafa</color>
+    <color name="secondaryTextColor">#212121</color>
 </resources>

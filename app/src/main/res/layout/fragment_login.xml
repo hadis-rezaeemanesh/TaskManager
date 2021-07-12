@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:id="@+id/container"
     android:layout_height="match_parent"
-    android:background="@color/color_view"
+    android:background="@color/primaryColor"
     android:layout_below="@+id/root_constraint_layout">
 
 
@@ -63,7 +63,7 @@
        android:id="@+id/btn_login"
        android:layout_width="0dp"
        android:layout_height="wrap_content"
-       android:backgroundTint="@color/btn_color"
+       android:backgroundTint="@color/secondaryColor"
        android:text="Login"
        android:textSize="18sp"
        android:textColor="@color/black"
@@ -86,7 +86,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
-        android:backgroundTint="@color/btn_color"
+        android:backgroundTint="@color/secondaryColor"
         android:text="Create New Account"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
