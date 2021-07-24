@@ -7,30 +7,27 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.taskmanager.controller.fragment.TaskFragment;
 import com.example.taskmanager.controller.model.State;
+import com.example.taskmanager.controller.repository.TaskRepository;
 
 public class TaskPagerAdapter extends FragmentStateAdapter {
 
-    private State mState;
+    private TaskFragment mTaskFragment;
+    private TaskRepository mTaskRepository;
 
     public TaskPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
+
     }
 
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position){
-            case 0:
-                return TaskFragment.newInstance("ToDo");
-            case 1:
-                return TaskFragment.newInstance("Doing");
-            case 2:
-                return TaskFragment.newInstance("Done");
-            default:
-                return null;
-        }
 
+        mTaskRepository = TaskRepository.getInstance(position);
+        mTaskFragment =
+                TaskFragment.newInstance(mTaskRepository.getListWithPosition(position), position);
+        return mTaskFragment;
     }
 
     @Override

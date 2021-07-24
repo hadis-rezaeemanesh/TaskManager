@@ -59,6 +59,7 @@ public class Task {
 
     public Task() {
         mId = UUID.randomUUID();
-        mDate = DateUtils.randomDate();
+        mDate = new Date();
+        mTime = new Date();
     }
 }

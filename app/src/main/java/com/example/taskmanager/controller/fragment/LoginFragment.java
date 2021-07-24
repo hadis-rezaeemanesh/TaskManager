@@ -91,8 +91,8 @@ public class LoginFragment extends Fragment {
 
                     else if (mUserNameLogin.getText().toString().equals(mUserNameSignUp) &&
                             mPasswordLogin.getText().toString().equals(mPasswordSignUp)) {
-                        Intent intent = TaskPagerActivity.newIntent(getActivity());
-                        startActivity(intent);
+                        /*Intent intent = TaskPagerActivity.newIntent(getActivity());
+                        startActivity(intent);*/
                     } else
                         Snackbar.make(mConstraintHelper,
                                 "Your information are not valid!!", Snackbar.LENGTH_LONG).show();
