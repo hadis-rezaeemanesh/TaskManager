@@ -38,10 +38,10 @@ public class TimePickerFragment extends DialogFragment {
         // Required empty public constructor
     }
 
-    public static TimePickerFragment newInstance(Date time) {
+    public static TimePickerFragment newInstance(Date taskDate) {
         TimePickerFragment fragment = new TimePickerFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_TASK_TIME, time);
+        args.putSerializable(ARGS_TASK_TIME, taskDate);
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,10 +78,19 @@ public class TimePickerFragment extends DialogFragment {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Date userSelectedTime = extractTimeFromTimePicker();
+                        int hour = mTimePicker.getCurrentHour();
+                        int minute = mTimePicker.getCurrentMinute();
+                        mTaskTime.setHours(hour);
+                        mTaskTime.setMinutes(minute);
+
+                        Fragment fragment = getTargetFragment();
+                        Intent intent = new Intent();
+                        intent.putExtra(EXTRA_USER_SELECTED_TIME, mTaskTime.getTime());
+                        fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                       /* Date userSelectedTime = extractTimeFromTimePicker();
                         userSelectedTime.setTime(mTimePicker.getHour());
-//                        mCalendar.setTimeInMillis(mTaskTime.getTime());
-                        sendResult(userSelectedTime);
+                        mCalendar.setTimeInMillis(mTaskTime.getTime());
+                        sendResult(userSelectedTime);*/
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.taskmanager.R;
 import com.example.taskmanager.controller.activity.LoginActivity;
 import com.example.taskmanager.controller.model.User;
+import com.example.taskmanager.controller.repository.UserDBRepository;
 
 import java.util.zip.Inflater;
 
@@ -26,6 +27,7 @@ public class SignUpFragment extends Fragment {
     private EditText mEditTextUsername;
     private EditText mEditTextPassword;
     private Button mButtonSignUp;
+    private UserDBRepository mRepository;
 
     private String mUserName;
     private String mPassword;
@@ -33,7 +35,7 @@ public class SignUpFragment extends Fragment {
     public SignUpFragment() {
         // Required empty public constructor
     }
-    // TODO: Rename and change types and number of parameters
+
     public static SignUpFragment newInstance(String userName, String password) {
         SignUpFragment fragment = new SignUpFragment();
         Bundle args = new Bundle();
@@ -46,6 +48,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mRepository = UserDBRepository.getInstance(getActivity());
         mUserName = getArguments().getString(ARGS_USER_NAME);
         mPassword = getArguments().getString(ARGS_PASSWORD);
     }
@@ -78,9 +81,15 @@ public class SignUpFragment extends Fragment {
                     String userName = mEditTextUsername.getText().toString();
                     String password =  mEditTextPassword.getText().toString();
 
-                    User user = new User();
-                    user.setUserName(userName);
-                    user.setPassword(password);
+                    User user = mRepository.getUser(userName, password);
+                    if (user == null){
+                        user = new User();
+                        user.setUserName(userName);
+                        user.setPassword(password);
+
+                        mRepository.insertUser(user);
+                    }
+
 
                     Intent intent = LoginActivity.newIntent(getActivity(),userName, password);
                     startActivity(intent);
